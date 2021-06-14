@@ -75,7 +75,6 @@ return require("packer").startup(function(use)
         end,
         event = "BufRead"
     }
-
     -- whichkey
     use {"folke/which-key.nvim"}
 
@@ -102,20 +101,20 @@ return require("packer").startup(function(use)
     -- Status Line and Bufferline
     use {"glepnir/galaxyline.nvim"}
 
-    use {
-        "romgrk/barbar.nvim",
+    -- use {
+    --     "romgrk/barbar.nvim",
 
-        config = function()
-            vim.api.nvim_set_keymap('n', '<TAB>', ':BufferNext<CR>',
-                                    {noremap = true, silent = true})
-            vim.api.nvim_set_keymap('n', '<S-TAB>', ':BufferPrevious<CR>',
-                                    {noremap = true, silent = true})
-            vim.api.nvim_set_keymap('n', '<S-x>', ':BufferClose<CR>',
-                                    {noremap = true, silent = true})
-        end,
-        event = "BufRead"
+    --     config = function()
+    --         vim.api.nvim_set_keymap('n', '<TAB>', ':BufferNext<CR>',
+    --                                 {noremap = true, silent = true})
+    --         vim.api.nvim_set_keymap('n', '<S-TAB>', ':BufferPrevious<CR>',
+    --                                 {noremap = true, silent = true})
+    --         vim.api.nvim_set_keymap('n', '<S-x>', ':BufferClose<CR>',
+    --                                 {noremap = true, silent = true})
+    --     end,
+    --     event = "BufRead"
 
-    }
+    -- }
 
     -- Extras, these do not load by default
 
@@ -265,12 +264,19 @@ return require("packer").startup(function(use)
         event = "BufRead",
         config = function()
             require'FTerm'.setup({
-                dimensions = {height = 0.8, width = 0.8, x = 0.5, y = 0.5},
-                border = 'single' -- or 'double'
+                     cmd = "cd ~;  tmux new-session -A -s floating",
+                     dimensions  = {
+                     height = 0.4,
+                     width = 0.56,
+                     x = 1.3,
+                     y = -0.00
+                 },
+                 border = 'single' -- or 'double'
             })
         end,
         disable = not O.plugin.floatterm.active
     }
+
     -- Search & Replace
     use {
         'windwp/nvim-spectre',
@@ -280,6 +286,7 @@ return require("packer").startup(function(use)
         end,
         disable = not O.plugin.spectre.active
     }
+    -- TODO setup nvim to always cd to Desktop but tcd to the active window project
     -- lsp root with this nvim-tree will follow you
     use {
         "ahmedkhalf/lsp-rooter.nvim",
@@ -421,4 +428,337 @@ return require("packer").startup(function(use)
         ft = {"elixir", "eelixir"},
         disable = not O.lang.elixir.active
     }
+
+-------------------------------------------------------------------------------
+    --  Personalization Begins Here
+
+
+    -- Learning and Reference -------------------------------------------------
+
+    -- INFO: Learning Lua central collections of resources
+    -- https://github.com/nanotee/nvim-lua-guide
+    -- https://github.com/norcalli/neovim-plugin
+
+    -- https://github.com/rafcamlet/nvim-luapad
+    use { 'rafcamlet/nvim-luapad', opt = false }
+ -- require_plugin('nvim-luapad')
+
+    -- Learn Vim Motions
+    -- https://github.com/ThePrimeagen/vim-be-good
+    use 'ThePrimeagen/vim-be-good'
+
+    -- Luarocks
+    -- https://github.com/lunarmodules/Penlight
+    --use_rocks 'penlight'
+    --use_rocks 'luaformatter'
+
+    use { 'sudormrfbin/cheatsheet.nvim',
+        opt = true,
+        requires = {
+            'nvim-telescope/telescope.nvim',
+            'nvim-lua/popup.nvim',
+            'nvim-lua/plenary.nvim',
+        }
+    }
+
+
+    -- prose tools ------------------------------------------------------------
+    -- until I decide on one, I'll be enabenabling one markdown plugin at a time
+
+    -- use { 'vimwiki/vimwiki', opt = true }
+    -- require_plugin('vim-wiki')
+
+    use 'preservim/vim-lexical'
+
+    use 'plasticboy/vim-markdown'
+    use 'reedes/vim-pencil'
+
+    use 'preservim/vim-wordy'
+
+    -- https://github.com/junegunn/limelight.vim
+    use { 'junegunn/limelight.vim', opt = true }
+
+
+    -- Table Editors and Alignment Helpers ------------------------------------
+
+    -- https://github.com/godlygeek/tabular
+    use { 'godlygeek/tabular', opt = true }
+
+    -- https://github.com/junegunn/vim-easy-align
+    use 'junegunn/vim-easy-align'
+
+    -- Vim Table Mode
+    -- https://github.com/dhruvasagar/vim-table-mode
+    use { 'dhruvasagar/vim-table-mode', opt = true }
+    -- configured in alice-viml/options.vim
+    -- There are so many options, OMG, it does formula too
+    -- :TableModeToggle
+    -- <Leader>ttm starts table mode
+    -- <Leader>ttt Tableize!
+
+
+    -- User Experience and Interface Upgrades ---------------------------------
+    -- I'll want this when I'm working on a team
+    -- use {'f-person/git-blame.nvim', opt = true}
+
+    -- Reload
+    use 'famiu/nvim-reload'
+
+    -- Trigger with <leader>u or :OpenURL
+    use  'henrik/vim-open-url'
+
+    -- CtrlSpace
+    -- let's see if I can config it in lua, and maybe move vimwiki over
+    -- configured in alice-ctrlspace/init.lua
+    use 'vim-ctrlspace/vim-ctrlspace'
+
+    -- List Buffers per Tab
+    use 'Shougo/tabpagebuffer.vim'
+
+    -- Telescope Plugins
+    use 'nvim-telescope/telescope-fzf-writer.nvim'
+    use 'nvim-telescope/telescope-dap.nvim'
+    use "nvim-telescope/telescope-frecency.nvim"
+
+    -- Mundo (undo tree with diffs)
+    -- https://github.com/simnalamburt/vim-mundo
+    -- use { 'simnalamburt/vim-mundo', opt = true }
+
+    -- -- both session plugins configured in alice-auto-session/init.lua
+    -- -- https://github.com/rmagatti/auto-session
+    -- use { 'rmagatti/auto-session', opt = false }
+    -- use {
+    --         'rmagatti/session-lens',
+    --           requires = {
+    --             'rmagatti/auto-session',
+    --             'nvim-telescope/telescope.nvim'
+    --         }
+    --     }
+
+    -- tmux navigation uses:
+    -- tmux binds: https://github.com/jabirali/tmux-tilish#keybindings
+    -- nvim binds:
+    use { 'numToStr/Navigator.nvim', opt = false,
+        config = function()
+            require('Navigator').setup({
+                auto_save = false,
+                disable_on_zoom = true,
+            })
+        end
+    }
+
+
+    -- programming assistance -------------------------------------------------
+
+    -- These look interesting
+    --
+    -- https://github.com/tpope/vim-sleuth
+    --
+    -- use {"windwp/nvim-ts-autotag", opt = true} --- where is this from
+    --
+    -- show function signatures from lsp
+    -- https://github.com/ray-x/lsp_signature.nvim
+    -- not sure if lspsaga is handling this
+    -- use {'ray-x/lsp_signature.nvim', opt = true}
+
+    -- EditorConfig
+    use 'editorconfig/editorconfig-vim'
+
+    -- CHECK remove these and stick with nvim autopair if compe quits acting up
+    -- autopairs and closing
+    --use '9mm/vim-closer':\n
+    use 'tpope/vim-endwise'
+
+    -- https://github.com/rktjmp/fwatch.nvim
+    use 'rktjmp/fwatch.nvim'
+
+    -- https://github.com/tpope/vim-dispatch
+    use { 'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
+
+    --  https://github.com/thinca/vim-quickrun
+    use 'thinca/vim-quickrun'
+
+    -- Lsp statusline functions
+    -- https://github.com/nvim-lua/lsp-status.nvim
+    -- use 'nvim-lua/lsp-status.nvim'
+
+    -- Rainbow parentheses
+    use 'p00f/nvim-ts-rainbow'
+
+
+    -- git ------------------ -------------------------------------------------
+
+    -- Tig Explorer
+    -- https://github.com/iberianpig/tig-explorer.vim
+    use { 'iberianpig/tig-explorer.vim', opt = true }
+ -- require_plugin('tig-explorer.vim')
+
+    -- Gina
+    -- https://github.com/lambdalisue/gina.vim
+    use { 'lambdalisue/gina.vim', opt = true }
+ -- require_plugin('gina.vim')
+
+    -- Neogit
+    -- https://github.com/TimUntersberger/neogit
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+ -- require_plugin('neogit')
+
+
+    -- Code Analyzers ---------------------------------------------------------
+
+    -- LSP and Ctags Viewer - https://github.com/liuchengxu/vista.vim
+    use 'liuchengxu/vista.vim'
+    use 'preservim/tagbar'
+
+    -- Gutentags - https://github.com/ludovicchabant/vim-gutentags
+    use { 'ludovicchabant/vim-gutentags', opt = false }
+    use { 'skywind3000/gutentags_plus', opt = false }
+    -- FIXME figure out the new require syntax
+ -- require_plugin('vim-gutentags')
+ -- require_plugin('gutentags_plus')
+
+
+    -- Language Specific ------------------------------------------------------
+
+    -- Fish
+
+    -- I'm not as pleased with vim-fish as I want to be
+    -- maybe this is better
+    -- https://github.com/khaveesh/vim-fish-syntax
+    -- use 'khaveesh/vim-fish-syntax'
+    use { 'dag/vim-fish', opt = false }
+ -- require_plugin('vim-fish')
+
+    -- Lua
+
+    use { 'euclidianAce/BetterLua.vim', opt = false }
+ -- require_plugin('BetterLua.vim')
+
+    -- Typescript/Javascript
+
+    -- syntax hl in tagged templates
+    -- https://github.com/Quramy/vim-js-pretty-template
+    use 'Quramy/vim-js-pretty-template'
+    -- activated by setting filetype on parent file load with
+    -- ```
+    -- " Register tag name associated the filetype
+    -- call jspretmpl#register_tag('gql', 'graphql')
+    --
+    -- autocmd FileType javascript JsPreTmpl
+    -- autocmd FileType javascript.jsx JsPreTmpl
+    -- ````
+
+
+
+
+    -- The Pretty Things ------------------------------------------------------
+
+    -- configured in alice-tokyonight/init.lua
+    use 'folke/tokyonight.nvim'
+
+    -- Made with Lush
+    use 'olimorris/onedark.nvim'
+
+    -- Transparent Themes
+    use 'jeffkreeftmeijer/vim-dim'
+
+    -- Light Backgrounds
+
+    -- colorscheme PaperColor
+    use { 'NLKNguyen/papercolor-theme', opt = true }
+
+    -- colorscheme pencil
+    use 'preservim/vim-colors-pencil'
+
+    -- Emmigrated from previous config
+
+    use 'Rigellute/rigel'
+    use 'sliminality/wild-cherry-vim'
+
+    use 'jaredgorski/SpaceCamp'
+    use 'aswathkk/DarkScene.vim'
+    use 'challenger-deep-theme/vim'
+    use { 'kaicataldo/material.vim', opt = true }
+    -- , { 'branch': 'main' }
+
+    -- use 'zeis/vim-kolor'
+    use { 'tssm/fairyfloss.vim', opt = true }
+    use 'TroyFletcher/vim-colors-synthwave'
+    use { 'jonathanfilip/vim-lucius', opt = true }
+    use { 'swalladge/paper.vim', opt = true }
+    use 'liuchengxu/space-vim-dark'
+    use 'jayhowie/crystal-cove'
+
+    use 'rakr/vim-one'
+    use { 'joshdick/onedark.vim', opt = true }
+    use { 'KeitaNakamura/neodark.vim', opt = true }
+
+    -- 16 Color / Esoteric
+    use 'romainl/vim-colors'
+    use 'romainl/vim-sweet16'
+    -- https://github.com/srcery-colors/srcery-vim
+    use 'srcery-colors/srcery-vim'
+
+    -- Looks Cool
+    use { 'ishan9299/modus-theme-vim', opt = true }
+    use 'romgrk/doom-one.vim'
+    use { 'Th3Whit3Wolf/spacebuddy', opt = true }
+
+    -- https://github.com/arzg/vim-colors-xcode
+    use 'arzg/vim-colors-xcode'
+
+    -- Theme Development
+    use 'lifepillar/vim-colortemplate'
+    use 'tjdevries/colorbuddy.vim'
+    -- local Color, colors, Group, groups, styles = require('colorbuddy').setup()
+
+    -- -- Use Color.new(<name>, <#rrggbb>) to create new colors
+    -- -- They can be accessed through colors.<name>
+    -- Color.new('background',  '#282c34')
+    -- Color.new('red',         '#cc6666')
+    -- Color.new('green',       '#99cc99')
+    -- Color.new('yellow',      '#f0c674')
+    --
+    -- -- Define highlights in terms of `colors` and `groups`
+    -- Group.new('Function'        , colors.yellow      , colors.background , styles.bold)
+    -- Group.new('luaFunctionCall' , groups.Function    , groups.Function   , groups.Function)
+    --
+    -- -- Define highlights in relative terms of other colors
+    -- Group.new('Error'           , colors.red:light() , nil               , s.bold)
+
 end)
+
+
+-- I am currently tempted, butI will read the docs on the lsp-rooter first
+-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+-- "automatically `tcd` to project directories when opening a file
+-- Plug 'airblade/vim-rooter'
+-- " The public function FindRootDirectory() returns the absolute path to the root directory as a string, if a root directory is found, or an empty string otherwise.
+--
+-- " change directory for the whole tab
+-- let g:rooter_cd_cmd = 'tcd'
+--
+-- " what triggers a scan
+-- let g:rooter_targets = '/,*'
+-- " let g:rooter_targets = '*'
+-- " let g:rooter_targets = '/,*.yml,*.yaml'
+--
+-- " how to identify a root directory
+-- let g:rooter_patterns = [
+--       \ '.git',
+--       \ '>~/work',
+--       \ '>.config',
+--       \ '>~/.homesick/repos/',
+--       \ '=/home/alice',
+--       \ ]
+--
+-- " follow file and directory links
+-- let g:rooter_resolve_links = 1
+--
+-- " if blank, will not change directory (can be home or current
+-- let g:rooter_change_directory_for_non_project_files = ''
+--
+-- " manual mode
+-- let g:rooter_manual_only = 1
+--
+-- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

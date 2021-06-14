@@ -53,24 +53,27 @@ M.config = function()
     vim.g.nvim_tree_bindings = {
         {key = {"l", "<CR>", "o"}, cb = tree_cb("edit")},
         {key = "h", cb = tree_cb("close_node")},
-        {key = "v", cb = tree_cb("vsplit")}
+        {key = "v", cb = tree_cb("vsplit")},
+        {key = "=", cb = tree_cb("cd")},
+        {key = "-", cb = tree_cb("dir_up")},
     }
 end
 
-local view = require 'nvim-tree.view'
+-- local view = require 'nvim-tree.view'
 
+-- TODO: turn view checking back on
 M.toggle_tree = function()
-    if view.win_open() then
-        require'nvim-tree'.close()
-        if package.loaded['bufferline.state'] then
-            require'bufferline.state'.set_offset(0)
-        end
-    else
+    -- if view.win_open() then
+    --     require'nvim-tree'.close()
+    --     if package.loaded['bufferline.state'] then
+    --         require'bufferline.state'.set_offset(0)
+    --     end
+    -- else
         if package.loaded['bufferline.state'] then
             require'bufferline.state'.set_offset(31, 'File Explorer')
         end
         require'nvim-tree'.find_file(true)
-    end
+    -- end
 
 end
 

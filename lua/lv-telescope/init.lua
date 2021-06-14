@@ -7,10 +7,9 @@ local actions = require('telescope.actions')
 -- '--color=never',
 require('telescope').setup {
     defaults = {
-        find_command = {
-            'rg', '--no-heading', '--with-filename', '--line-number',
-            '--column', '--smart-case'
-        },
+        find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case'},
+        prompt_position = "bottom",
+        -- prompt_prefix = " ",
         prompt_prefix = " ",
         selection_caret = " ",
         entry_prefix = "  ",
@@ -75,8 +74,25 @@ require('telescope').setup {
         fzy_native = {
             override_generic_sorter = false,
             override_file_sorter = true
+        },
+        fzf_writer = {
+            minimum_grep_characters = 2,
+            minimum_files_characters = 2,
+
+            -- Disabled by default.
+            -- Will probably slow down some aspects of the sorter, but can make color highlights.
+            -- I will work on this more later.
+            use_highlighter = true,
+        },
+        project = {
+            base_dir = '~/code',
+            max_depth = 1,
+            display_type = 'full',
         }
     }
 }
 
--- require'telescope'.load_extension('project')
+require('telescope').load_extension('project')
+require('telescope').load_extension('dap')
+-- require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzf_writer')

@@ -2,8 +2,10 @@ local gl = require('galaxyline')
 -- get my theme in galaxyline repo
 -- local colors = require('galaxyline.theme').default
 local colors = {
-    -- bg = '#2E2E2E',
-    bg = '#292D38',
+    none = 'none',
+    black = '#2E2E2E',
+    white = '#f8f3f6',
+    dark_grey = '#404048',
     yellow = '#DCDCAA',
     dark_yellow = '#D7BA7D',
     cyan = '#4EC9B0',
@@ -97,8 +99,10 @@ table.insert(gls.left, {
                 ['!'] = colors.blue,
                 t = colors.blue
             }
-            vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
+            vim.api.nvim_command('hi BufferTypeSeparator guibg=' .. mode_color[vim.fn.mode()])
+            vim.api.nvim_command('hi GalaxyBufferType gui=reverse guifg=' .. mode_color[vim.fn.mode()])
             return '▊ '
+            --return ' '
         end,
         highlight = {colors.red, colors.bg}
     }
@@ -113,8 +117,8 @@ table.insert(gls.left, {
         end,
         condition = condition.check_git_workspace,
         separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.orange, colors.bg}
+        separator_highlight = {'NONE', colors.grey},
+        highlight = {colors.orange, colors.grey}
     }
 })
 
@@ -123,8 +127,8 @@ table.insert(gls.left, {
         provider = 'GitBranch',
         condition = condition.check_git_workspace,
         separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.grey, colors.bg}
+        separator_highlight = {'NONE', colors.grey},
+        highlight = {colors.cyan, colors.grey}
     }
 })
 
@@ -133,7 +137,7 @@ table.insert(gls.left, {
         provider = 'DiffAdd',
         condition = condition.hide_in_width,
         icon = '  ',
-        highlight = {colors.green, colors.bg}
+        highlight = {colors.green, colors.grey}
     }
 })
 
@@ -142,7 +146,7 @@ table.insert(gls.left, {
         provider = 'DiffModified',
         condition = condition.hide_in_width,
         icon = ' 柳',
-        highlight = {colors.blue, colors.bg}
+        highlight = {colors.blue, colors.grey}
     }
 })
 
@@ -151,20 +155,20 @@ table.insert(gls.left, {
         provider = 'DiffRemove',
         condition = condition.hide_in_width,
         icon = '  ',
-        highlight = {colors.red, colors.bg}
+        highlight = {colors.red, colors.grey}
     }
 })
 
 table.insert(gls.right, {
-    DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}}
+    DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.grey}}
 })
-table.insert(gls.right, {DiagnosticWarn = {provider = 'DiagnosticWarn', icon = '  ', highlight = {colors.orange, colors.bg}}})
+table.insert(gls.right, {DiagnosticWarn = {provider = 'DiagnosticWarn', icon = '  ', highlight = {colors.orange, colors.grey}}})
 
 table.insert(gls.right, {
-    DiagnosticHint = {provider = 'DiagnosticHint', icon = '  ', highlight = {colors.vivid_blue, colors.bg}}
+    DiagnosticHint = {provider = 'DiagnosticHint', icon = '  ', highlight = {colors.vivid_blue, colors.grey}}
 })
 
-table.insert(gls.right, {DiagnosticInfo = {provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.bg}}})
+table.insert(gls.right, {DiagnosticInfo = {provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.grey}}})
 
 table.insert(gls.right, {
     TreesitterIcon = {
@@ -173,8 +177,8 @@ table.insert(gls.right, {
             return ''
         end,
         separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.green, colors.bg}
+        separator_highlight = {'NONE', colors.grey},
+        highlight = {colors.green, colors.grey}
     }
 })
 
@@ -187,7 +191,7 @@ table.insert(gls.right, {
             return true
         end,
         icon = '  ',
-        highlight = {colors.grey, colors.bg}
+        highlight = {colors.black, colors.grey}
     }
 })
 
@@ -195,60 +199,60 @@ table.insert(gls.right, {
     LineInfo = {
         provider = 'LineColumn',
         separator = '  ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.grey, colors.bg}
+        separator_highlight = {'NONE', colors.grey},
+        highlight = {colors.black, colors.grey}
     }
 })
 
-table.insert(gls.right, {
-    PerCent = {
-        provider = 'LinePercent',
-        separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.grey, colors.bg}
-    }
-})
-
-table.insert(gls.right, {
-    Tabstop = {
-        provider = function()
-            return "Spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth") .. " "
-        end,
-        condition = condition.hide_in_width,
-        separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.grey, colors.bg}
-    }
-})
-
-table.insert(gls.right, {
-    BufferType = {
-        provider = 'FileTypeName',
-        condition = condition.hide_in_width,
-        separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.grey, colors.bg}
-    }
-})
-
-table.insert(gls.right, {
-    FileEncode = {
-        provider = 'FileEncode',
-        condition = condition.hide_in_width,
-        separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.grey, colors.bg}
-    }
-})
-
+-- table.insert(gls.right, {
+--     PerCent = {
+--         provider = 'LinePercent',
+--         separator = ' ',
+--         separator_highlight = {'NONE', colors.grey},
+--         highlight = {colors.black, colors.grey}
+--     }
+-- })
+-- 
+-- table.insert(gls.right, {
+--     Tabstop = {
+--         provider = function()
+--             return "Spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth") .. " "
+--         end,
+--         condition = condition.hide_in_width,
+--         separator = ' ',
+--         separator_highlight = {'NONE', colors.grey},
+--         highlight = {colors.black, colors.grey}
+--     }
+-- })
+-- 
+-- table.insert(gls.right, {
+--     BufferType = {
+--         provider = 'FileTypeName',
+--         condition = condition.hide_in_width,
+--         separator = ' ',
+--         separator_highlight = {'NONE', colors.grey},
+--         highlight = {colors.black, colors.grey}
+--     }
+-- })
+-- 
+-- table.insert(gls.right, {
+--     FileEncode = {
+--         provider = 'FileEncode',
+--         condition = condition.hide_in_width,
+--         separator = ' ',
+--         separator_highlight = {'NONE', colors.grey},
+--         highlight = {colors.black, colors.grey}
+--     }
+-- })
+-- 
 table.insert(gls.right, {
     Space = {
         provider = function()
             return ' '
         end,
         separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.orange, colors.bg}
+        separator_highlight = {'NONE', colors.none},
+        highlight = {colors.orange, colors.none}
     }
 })
 
@@ -256,13 +260,19 @@ table.insert(gls.short_line_left, {
     BufferType = {
         provider = 'FileTypeName',
         separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.grey, colors.bg}
+        separator_highlight = {'NONE', colors.grey},
+        highlight = {colors.black, colors.grey}
     }
 })
 
-table.insert(gls.short_line_left, {
-    SFileName = {provider = 'SFileName', condition = condition.buffer_not_empty, highlight = {colors.grey, colors.bg}}
+table.insert(gls.short_line_right, {
+    BufferIcon = {provider = 'BufferIcon', condition = condition.buffer_not_empty, highlight = {colors.black, colors.grey}}
 })
 
---table.insert(gls.short_line_right[1] = {BufferIcon = {provider = 'BufferIcon', highlight = {colors.grey, colors.bg}}})
+table.insert(gls.short_line_left, {
+    FilePath = {provider = 'FilePath', condition = condition.buffer_not_empty, highlight = {colors.black, colors.grey}}
+})
+
+table.insert(gls.short_line_left, {
+    SFileName = {provider = 'SFileName', condition = condition.buffer_not_empty, highlight = {colors.black, colors.grey}}
+})

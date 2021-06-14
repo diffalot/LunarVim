@@ -8,8 +8,7 @@ an executable
 ]] -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 -- general
 O.auto_complete = true
-O.colorscheme = 'lunar'
-O.auto_close_tree = 0
+O.auto_close_tree = 1
 O.wrap_lines = false
 O.timeoutlen = 100
 O.document_highlight = true
@@ -19,16 +18,16 @@ O.ignore_case = true
 O.smart_case = true
 
 -- After changing plugin config it is recommended to run :PackerCompile
-O.plugin.hop.active = false
-O.plugin.dial.active = false
+O.plugin.hop.active = true
+O.plugin.dial.active = true
 O.plugin.dashboard.active = true
-O.plugin.matchup.active = false
-O.plugin.colorizer.active = false
+O.plugin.matchup.active = true
+O.plugin.colorizer.active = true
 O.plugin.numb.active = false
-O.plugin.ts_playground.active = false
-O.plugin.indent_line.active = false
-O.plugin.gitlinker.active = false
-O.plugin.zen.active = false
+O.plugin.ts_playground.active = true
+O.plugin.indent_line.active = true
+O.plugin.gitlinker.active = true
+O.plugin.zen.active = true
 
 -- dashboard
 -- O.dashboard.custom_header = {""}

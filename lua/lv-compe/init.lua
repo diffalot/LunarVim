@@ -19,17 +19,24 @@ require'compe'.setup {
         path = {kind = "   (Path)"},
         buffer = {kind = "   (Buffer)"},
         calc = {kind = "   (Calc)"},
+       -- tabnine={
+       --     max_line = 1000,
+       --     mas_num_results = 6,
+       --     priority = 5000,
+       --     sort = false,
+       --     show_prediction_strength = true,
+       --     ignore_pattern = ''
+       --         },
         vsnip = {kind = "   (Snippet)"},
         nvim_lsp = {kind = "   (LSP)"},
-        -- nvim_lua = {kind = "  "},
-		nvim_lua = false,
-        spell = {kind = "   (Spell)"},
-        tags = false,
-        vim_dadbod_completion = true,
+        nvim_lua = {kind = "  "},
+        -- spell = {kind = "   (Spell)"},
+        tags = true,
+        -- vim_dadbod_completion = true,
         -- snippets_nvim = {kind = "  "},
         -- ultisnips = {kind = "  "},
-        -- treesitter = {kind = "  "},
-        emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}}
+        treesitter = {kind = "  "},
+        emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text", "vimwiki"}}
         -- for emoji press : (idk if that in compe tho)
     }
 }
